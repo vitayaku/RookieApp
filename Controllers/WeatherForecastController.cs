@@ -29,5 +29,18 @@ namespace WebApplication1.Controllers
             })
             .ToArray();
         }
+
+        //2000-01-01
+        [HttpPost(Name = "GetWeatherForecastByDate")]
+        public IEnumerable<WeatherForecast> GetByDate(DateTime date)
+        {
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
     }
 }
