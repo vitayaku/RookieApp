@@ -1,3 +1,6 @@
+// Эта часть программы не имеет отношения к логике. В рамках стажировки смотреть файл ArtistController.cs и DataBaseAdapter.cs
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -1,9 +1,17 @@
 namespace RookieApp.Models
 {
+    /// <summary>
+    /// Модель данных для исполнителя
+    /// </summary>
     public class Artist
     {
-        public string ID { get; set; }
-
-        public string Name { get; set; }
+        /// <summary>
+        /// Идентификатор исполнителя
+        /// </summary>
+        public required string ID { get; set; }
+        /// <summary>
+        /// Имя исполнителя
+        /// </summary>
+        public required string Name { get; set; }
     }
 }
