@@ -1,30 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using RookieApp.Controllers;
+using RookieApp.Models;
 
-namespace WebApplication1.Controllers
+namespace RookieApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class ArtistController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<ArtistController> _logger;
-
-        public ArtistController(ILogger<ArtistController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet(Name = "GetArtist")]
         public IEnumerable<Artist> Get(int id)
         {
             var result = DataBaseAdapter.GetData(id);
             var list = new List<Artist>();
-            if (result.Any()) 
+            if (result.Count > 0)
             {
                 list.Add(
                 new Artist
@@ -33,22 +22,20 @@ namespace WebApplication1.Controllers
                     Name = result[result.Keys.First()]
                 });
             }
-            return list.ToArray();
+            return [.. list];
         }
 
         [HttpPost(Name = "AddArtist")]
         public IEnumerable<Artist> AddArtist(string ArtistName)
         {
             var result = DataBaseAdapter.AddData(ArtistName);
-            return new List<Artist>
-            {
-                new Artist
-                {
+            return
+            [
+                new() {
                     ID = result,
                     Name = ArtistName
                 }
-            }
-            .ToArray();
+            ];
         }
     }
 }

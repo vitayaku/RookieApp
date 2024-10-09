@@ -12,7 +12,7 @@ namespace RookieApp.Controllers
             using (var connection = new SQLiteConnection("Data Source=chinook.db"))
             {
                 connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(connection))
+                using (SQLiteCommand command = new(connection))
 
                 {
 
@@ -23,7 +23,7 @@ namespace RookieApp.Controllers
                 }
 
 
-                using (SQLiteCommand command = new SQLiteCommand(connection))
+                using (SQLiteCommand command = new(connection))
                 {
 
                     command.CommandText = $"select max(ArtistId) from artists";
@@ -46,13 +46,13 @@ namespace RookieApp.Controllers
 
         public static Dictionary<string, string> GetData(int param)
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            Dictionary<string, string> result = [];
             using (var connection = new SQLiteConnection("Data Source=chinook.db"))
             {
                 connection.Open();
                 
 
-                using (SQLiteCommand command = new SQLiteCommand(connection))
+                using (SQLiteCommand command = new(connection))
                 {
 
                     command.CommandText = $"Select a.artistid, a.name FROM artists a where a.artistid = {param}";
@@ -60,9 +60,10 @@ namespace RookieApp.Controllers
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string key = reader.GetValue(0).ToString();
-                        string value = reader.GetValue(1).ToString();
-                        result.Add(key, value);
+                        string? key = reader.GetValue(0).ToString();
+                        string? value = reader.GetValue(1).ToString();
+                        if(key is not null && value is not null)
+                            result.Add(key, value);
                     }
                     reader.Close();
                 }
