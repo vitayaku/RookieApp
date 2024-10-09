@@ -13,7 +13,7 @@ namespace RookieApp.Controllers // Пространства имен испол�
         /// <returns></returns>
         public static string AddData(string param) 
         {
-            string? resultExecution; // Создаем пустую переменную для 
+            string? resultExecution; // Создаем пустую переменную для результата
             using (var connection = new SQLiteConnection("Data Source=chinook.db")) // Указываем путь к БД
             {
                 connection.Open();// Открываем соединение

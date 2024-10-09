@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RookieApp.Models;
+using System.Net;
 
 namespace RookieApp.Controllers
 {
@@ -7,16 +8,19 @@ namespace RookieApp.Controllers
     [Route("[controller]")]
     public class ArtistController : ControllerBase
     {
+
         /// <summary>
         /// Метод для получения исполнителя по id
         /// </summary>
         /// <param name="id">Идегтификатор исполнителя</param>
         /// <returns></returns>
         [HttpGet(Name = "GetArtist")]
-        public IEnumerable<Artist> Get(int id)
+        public IEnumerable<Artist>? Get(int id)
         {
             var result = DataBaseAdapter.GetData(id); // Получаем данные из БД
             var list = new List<Artist>(); // Создаем пустой список
+            if (result.Count == 0)
+                return null;
             if (result.Count > 0) // Проверяем, есть ли в выборке из БД какие-то данные
             {
                 list.Add( // Добавляем в список исполнителя
@@ -26,6 +30,7 @@ namespace RookieApp.Controllers
                     Name = result[result.Keys.First()] // Имени исполнител. присваиваем имя. 
                 });
             }
+            
             return [.. list]; // Возврашаем результат
         }
 
