@@ -23,14 +23,16 @@ namespace WebApplication1.Controllers
         public IEnumerable<TrackPlayer> Get(int id)
         {
             var result = DataBaseAdapter.GetData(id);
-            var list = new List<TrackPlayer>()
+            var list = new List<TrackPlayer>();
+            if (result.Any()) 
             {
+                list.Add(
                 new TrackPlayer
                 {
                     ComposerID = result.Keys.First(),
                     ComposerName = result[result.Keys.First()]
-                }
-            };
+                });
+            }
             return list.ToArray();
         }
 
