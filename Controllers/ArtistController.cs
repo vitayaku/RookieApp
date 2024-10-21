@@ -13,7 +13,7 @@ namespace RookieApp.Controllers
         /// Метод для получения исполнителя по id
         /// </summary>
         /// <param name="id">Идегтификатор исполнителя</param>
-        /// <returns></returns>
+        /// <returns>Возвращает название исполнителя</returns>
         [HttpGet(Name = "GetArtist")]
         public IEnumerable<Artist>? Get(int id)
         {
@@ -34,6 +34,11 @@ namespace RookieApp.Controllers
             return [.. list]; // Возврашаем результат
         }
 
+        /// <summary>
+        /// Метод для добавления исполнителя
+        /// </summary>
+        /// <param name="ArtistName">Название исполнителя</param>
+        /// <returns>Возвращает идентификатор и название добавленного исполнителя</returns>
         [HttpPost(Name = "AddArtist")]
         public IEnumerable<Artist> AddArtist(string ArtistName)
         {
